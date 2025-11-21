@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+
+actor "User" as User
+
+rectangle Authentication {
+  User --> (Sign Up)
+  User --> (Log In)
+  User --> (Delete Account)
+}
+
+rectangle "Task Lists" {
+  User --> (Create TaskList)
+  User --> (View TaskLists)
+  User --> (Rename TaskList)
+  User --> (Delete TaskList)
+}
+
+rectangle "Tasks" {
+  User --> (Add Task)
+  User --> (View Tasks)
+  User --> (Delete Task)
+
+  User --> (Update Task)
+  (Update Task) --> (Update Priority) : <<include>>
+  (Update Task) --> (Update Due Date) : <<include>>
+  (Update Task) --> (Update Title/Description) : <<include>>
+
+  User --> (Manage Tags)
+  (Manage Tags) --> (Add Tag to Task) : <<include>>
+  (Manage Tags) --> (Remove Tag from Task) : <<include>>
+}
+
+rectangle "Filters" {
+  User --> (Filter Tasks by Tag)
+  User --> (Filter Tasks by Priority)
+  User --> (Filter Tasks by Due Date)
+  User --> (Sort Tasks)
+}
+
+@enduml

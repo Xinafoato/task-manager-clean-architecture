@@ -1,0 +1,113 @@
+@startuml
+
+left to right direction
+skinparam linetype ortho
+
+' ========================
+' Interface Layer
+' ========================
+package "Interface Layer" {
+    class InterfaceController {
+        + registerUser(email: String, password: String, createdAt: String) : String
+        + createTaskList(userId: String, name: String) : String
+        + createTask(taskListId: String, title: String, description: String, status: String, priority: String, dueDate: String) : String
+        + createTag(userId: String, name: String) : String
+        + assignTagToTask(taskId: String, tagId: String) : String
+    }
+}
+' ========================
+' Domain Layer
+' ========================
+package "Domain Layer" {
+    class User {
+        - id: int
+        - email: String
+        - password: String
+        - createdAt: Date
+        + authenticate(): boolean
+    }
+
+    class TaskList {
+        - id: int
+        - name: String
+        - user_id: int
+        + addTask(task: Task)
+        + removeTask(task: Task)
+    }
+
+    class Task {
+        - id: int
+        - title: String
+        - description: String
+        - status: String
+        - priority: String
+        - dueDate: Date
+        - createdAt: Date
+        - updatedAt: Date
+        - taskList_id: int
+        + markAsDone()
+    }
+
+    class Tag {
+        - id: int
+        - name: String
+        - user_id: int
+        + assignToTask(task: Task)
+    }
+
+    class Task_Tag {
+        - task_id: int
+        - tag_id: int
+    }
+    class DomainController {
+        + createUser(email: String, password: String, createdAt: String) : String
+        + createTaskList(userId: String, name: String) : String
+        + createTask(taskListId: String, title: String, description: String, status: String, priority: String, dueDate: String) : String
+        + createTag(userId: String, name: String) : String
+        + assignTagToTask(taskId: String, tagId: String) : String
+    }
+}
+
+' ========================
+' Persistence Layer
+' ========================
+package "Persistence Layer" {
+    class PersistenceController {
+        + saveUser(userAsString: String) : String
+        + saveTask(taskAsString: String) : String
+        + saveTaskList(taskListAsString: String) : String
+        + saveTag(tagAsString: String) : String
+        + saveTaskTag(taskTagAsString: String) : String
+        + findUser(idAsString: String) : String
+        + findTask(idAsString: String) : String
+        + findTaskList(idAsString: String) : String
+        + findTag(idAsString: String) : String
+    }
+}
+
+
+' ========================
+' Relationships
+' ========================
+
+' Domain relationships
+User "1" -- "0..*" TaskList : owns
+TaskList "1" -- "0..*" Task : contains
+User "1" -- "0..*" Tag : owns
+Task "0..*" -- "0..*" Tag : tagged via Task_Tag
+
+' Interface → Domain
+InterfaceController ..> DomainController
+
+' Domain → Persistence
+DomainController ..> PersistenceController
+
+
+' Domain classes
+DomainController ..> User
+DomainController ..> TaskList
+DomainController ..> Task
+DomainController ..> Tag
+DomainController ..> Task_Tag
+
+@enduml
