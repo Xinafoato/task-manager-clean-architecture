@@ -20,7 +20,7 @@ package "Interface Layer" {
 ' ========================
 package "Domain Layer" {
     class User {
-        - id: int
+        - id: String
         - email: String
         - password: String
         - createdAt: Date
@@ -28,15 +28,15 @@ package "Domain Layer" {
     }
 
     class TaskList {
-        - id: int
+        - id: String
         - name: String
-        - user_id: int
+        - user_id: String
         + addTask(task: Task)
         + removeTask(task: Task)
     }
 
     class Task {
-        - id: int
+        - id: String
         - title: String
         - description: String
         - status: String
@@ -44,20 +44,19 @@ package "Domain Layer" {
         - dueDate: Date
         - createdAt: Date
         - updatedAt: Date
-        - taskList_id: int
+        - taskList_id: String
         + markAsDone()
     }
 
     class Tag {
-        - id: int
+        - id: String
         - name: String
-        - user_id: int
-        + assignToTask(task: Task)
+        - user_id: String
     }
 
-    class Task_Tag {
-        - task_id: int
-        - tag_id: int
+    class TaskTagRelation {
+        - task_id: String
+        - tag_id: String
     }
     class DomainController {
         + createUser(email: String, password: String, createdAt: String) : String
@@ -94,7 +93,7 @@ package "Persistence Layer" {
 User "1" -- "0..*" TaskList : owns
 TaskList "1" -- "0..*" Task : contains
 User "1" -- "0..*" Tag : owns
-Task "0..*" -- "0..*" Tag : tagged via Task_Tag
+Task "0..*" -- "0..*" Tag : tagged via TaskTagRelation
 
 ' Interface → Domain
 InterfaceController ..> DomainController
@@ -108,6 +107,6 @@ DomainController ..> User
 DomainController ..> TaskList
 DomainController ..> Task
 DomainController ..> Tag
-DomainController ..> Task_Tag
+DomainController ..> TaskTagRelation
 
 @enduml
