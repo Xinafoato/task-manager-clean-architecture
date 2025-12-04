@@ -1,6 +1,7 @@
 package com.marti.domain.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Task {
     private String id;
@@ -13,7 +14,7 @@ public class Task {
     private Date updatedAt;
 
     public Task(String id , String title, String description, Status status, Priority priority, Date dueDate) {
-        this.id = id;
+        this.id = id != null? id: UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.status = status;

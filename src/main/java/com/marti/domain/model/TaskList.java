@@ -2,6 +2,7 @@ package com.marti.domain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TaskList {
     private String id;
@@ -10,7 +11,7 @@ public class TaskList {
     private List<Task> tasks;
 
     public TaskList(String id, String name, String userId) {
-        this.id = id;
+        this.id = id != null ? id : UUID.randomUUID().toString();
         this.name = name;
         this.userId = userId;
         this.tasks = new ArrayList<>();
