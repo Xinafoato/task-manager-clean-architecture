@@ -93,7 +93,7 @@ package "Persistence Layer" {
 User "1" -- "0..*" TaskList : owns
 TaskList "1" -- "0..*" Task : contains
 User "1" -- "0..*" Tag : owns
-Task "0..*" -- "0..*" Tag : tagged via TaskTagRelation
+Task "0..*" -------- "0..*" Tag : tagged via TaskTagRelation
 
 ' Interface → Domain
 InterfaceController ..> DomainController
