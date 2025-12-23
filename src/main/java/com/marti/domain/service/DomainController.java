@@ -127,9 +127,6 @@ public class DomainController {
         if (task == null || tag == null) {
             throw new IllegalArgumentException("Task or Tag not found");
         }
-
-        // Per fer-ho bé: la classe Task hauria de tenir una llista de Tags
-        // Afegirem una relació simple:
         task.setDescription(task.getDescription() + " [tag:" + tag.getName() + "]");
     }
 
