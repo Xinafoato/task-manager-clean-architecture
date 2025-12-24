@@ -3,6 +3,8 @@ package com.marti.application.usecases.task;
 import com.marti.application.dtos.task.AddTaskRequest;
 import com.marti.application.dtos.task.TaskDTO;
 import com.marti.application.mappers.TaskMapper;
+import com.marti.domain.model.Priority;
+import com.marti.domain.model.Status;
 import com.marti.domain.model.Task;
 import com.marti.domain.repository.TaskRepository;
 
@@ -20,7 +22,22 @@ public class AddTaskUseCase {
             throw new IllegalArgumentException("Request cannot be null");
         }
 
-        Task task = Task.create(request.taskListId(), request.title(), request.description(), request.status(), request.priority(), request.dueDate());
+        Status status;
+        Priority priority;
+
+        try {
+            status = Status.valueOf(request.status().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid status: " + request.status());
+        }
+
+        try {
+            priority = Priority.valueOf(request.priority().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid priority: " + request.priority());
+        }
+
+        Task task = Task.create(request.taskListId(), request.title(), request.description(), status, priority, request.dueDate());
 
         taskRepo.save(task);
 

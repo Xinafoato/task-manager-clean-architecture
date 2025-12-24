@@ -10,10 +10,10 @@ public class UpdateTaskRequest {
     private final String taskId;
     private final String newTitle;
     private final String newDescription;
-    private final Priority newPriority;
+    private final String newPriority;
     private final Date newDueDate;
 
-    public UpdateTaskRequest(String taskListId, String taskId, String newTitle, String newDescription, Priority newPriority, Date newDueDate) {
+    public UpdateTaskRequest(String taskListId, String taskId, String newTitle, String newDescription, String newPriority, Date newDueDate) {
 
         if (taskListId == null || taskListId.isBlank()) {
             throw new IllegalArgumentException("TaskList ID cannot be empty");
@@ -47,7 +47,7 @@ public class UpdateTaskRequest {
         return newDescription;
     }
 
-    public Priority getNewPriority() {
+    public String getNewPriority() {
         return newPriority;
     }
 

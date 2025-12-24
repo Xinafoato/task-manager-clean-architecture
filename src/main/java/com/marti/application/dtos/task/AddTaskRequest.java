@@ -9,7 +9,7 @@ public record AddTaskRequest(
         String taskListId,
         String title,
         String description,
-        Status status,
+        String status,
         Date dueDate,
-        Priority priority
+        String priority
 ) {}
