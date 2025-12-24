@@ -9,15 +9,27 @@ public class User {
     private String email;
     private String passwordHash;
 
-    public User(String id, String username, String email, String passwordHash) {
+    private User(String id, String username, String email, String passwordHash) {
         this.id = id != null ? id : UUID.randomUUID().toString();
         this.username = username;
         this.email = email;
         this.passwordHash = passwordHash;
     }
 
-    public User(String username, String email, String passwordHash) {
-        this(UUID.randomUUID().toString(), username, email, passwordHash);
+
+    // Factory Method
+    public static User create(String username, String email, String passwordHash) {
+        if (username == null || username.isBlank()) {
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email");
+        }
+        if (passwordHash == null || passwordHash.length() < 10) {
+            throw new IllegalArgumentException("Invalid hash");
+        }
+
+        return new User(null, username, email, passwordHash);
     }
 
     public String getId() {

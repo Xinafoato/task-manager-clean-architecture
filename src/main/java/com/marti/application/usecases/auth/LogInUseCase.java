@@ -2,13 +2,15 @@ package com.marti.application.usecases.auth;
 
 import com.marti.application.dtos.auth.*;
 import com.marti.domain.model.User;
-import com.marti.domain.service.DomainController;
+import com.marti.domain.repository.UserRepository;
+
 
 public class LogInUseCase {
-    private final DomainController domainController;
+    private final UserRepository userRepo;
 
-    public LogInUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public LogInUseCase(UserRepository userRepo) {
+
+        this.userRepo = userRepo;
     }
 
     public LogInResponse execute(LogInRequest request) {
@@ -20,7 +22,10 @@ public class LogInUseCase {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
-        User user = domainController.login(request.getEmail(), request.getPasswordHash());
+        User user = userRepo.findByEmailAndPassword(request.getEmail(), request.getPasswordHash()).orElseThrow(() -> new IllegalArgumentException("User or password incorrect"));
+        if (user == null) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
 
         return new LogInResponse(user.getId(), user.getUsername(), user.getEmail());
     }

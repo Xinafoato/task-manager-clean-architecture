@@ -1,12 +1,13 @@
 package com.marti.application.usecases.auth;
 
-import com.marti.domain.service.DomainController;
+import com.marti.domain.repository.UserRepository;
+
 
 public class DeleteAccountUseCase {
-    private final DomainController domainController;
+    private final UserRepository userRepo;
 
-    public DeleteAccountUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public DeleteAccountUseCase(UserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
     public void execute(String userId) {
@@ -14,7 +15,7 @@ public class DeleteAccountUseCase {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
 
-        domainController.deleteAccount(userId);
+        userRepo.findById(userId);
 
     }
 }

@@ -1,15 +1,15 @@
 package com.marti.application.usecases.auth;
 
 import com.marti.domain.model.User;
-import com.marti.domain.service.DomainController;
+import com.marti.domain.repository.UserRepository;
 import com.marti.application.dtos.auth.*;
 
 public class SignUpUseCase {
 
-    private final DomainController domainController;
+    private final UserRepository userRepo;
 
-    public SignUpUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public SignUpUseCase(UserRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
     public SignUpResponse execute(SignUpRequest request) {
@@ -28,7 +28,9 @@ public class SignUpUseCase {
         }
 
 
-        User user = domainController.signUp(request.getUsername(), request.getEmail(), request.getPasswordHash());
+        User user = User.create(request.getUsername(), request.getEmail(), request.getPasswordHash());
+
+        userRepo.save(user);
 
         return new SignUpResponse(user.getId(), user.getUsername(), user.getEmail());
     }
