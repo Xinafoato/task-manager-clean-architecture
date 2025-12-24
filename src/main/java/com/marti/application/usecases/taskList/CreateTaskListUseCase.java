@@ -3,14 +3,15 @@ package com.marti.application.usecases.taskList;
 import com.marti.application.dtos.taskList.TaskListDTO;
 import com.marti.application.mappers.TaskListMapper;
 import com.marti.domain.model.TaskList;
-import com.marti.domain.service.DomainController;
+import com.marti.domain.repository.TaskListRepository;
 
 public class CreateTaskListUseCase {
 
-    private final DomainController domainController;
+    private final TaskListRepository taskListRepo;
 
-    public CreateTaskListUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public CreateTaskListUseCase(TaskListRepository taskListRepo) {
+
+        this.taskListRepo = taskListRepo;
     }
 
     public TaskListDTO execute(String userId, String name) {
@@ -22,8 +23,9 @@ public class CreateTaskListUseCase {
             throw new IllegalArgumentException("TaskList name cannot be empty");
         }
 
-        TaskList created = domainController.createTaskList(userId, name);
+        TaskList taskList = TaskList.create(userId, name);
 
-        return TaskListMapper.toDTO(created);
+        taskListRepo.save(taskList);
+        return TaskListMapper.toDTO(taskList);
     }
 }

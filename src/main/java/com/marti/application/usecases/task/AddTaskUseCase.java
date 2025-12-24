@@ -1,6 +1,8 @@
 package com.marti.application.usecases.task;
 
 import com.marti.application.dtos.task.AddTaskRequest;
+import com.marti.application.dtos.task.TaskDTO;
+import com.marti.application.mappers.TaskMapper;
 import com.marti.domain.model.Task;
 import com.marti.domain.repository.TaskRepository;
 
@@ -13,7 +15,7 @@ public class AddTaskUseCase {
         this.taskRepo = taskRepo;
     }
 
-    public Task execute(AddTaskRequest request) {
+    public TaskDTO execute(AddTaskRequest request) {
         if (request == null) {
             throw new IllegalArgumentException("Request cannot be null");
         }
@@ -22,6 +24,6 @@ public class AddTaskUseCase {
 
         taskRepo.save(task);
 
-        return task;
+        return TaskMapper.toDTO(task);
     }
 }

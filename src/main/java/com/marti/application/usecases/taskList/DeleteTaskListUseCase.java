@@ -1,13 +1,15 @@
 package com.marti.application.usecases.taskList;
 
-import com.marti.domain.service.DomainController;
+import com.marti.domain.model.TaskList;
+import com.marti.domain.repository.TaskListRepository;
 
 public class DeleteTaskListUseCase {
 
-    private final DomainController domainController;
+    private final TaskListRepository taskListRepo;
 
-    public DeleteTaskListUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public DeleteTaskListUseCase(TaskListRepository taskListRepo) {
+
+        this.taskListRepo = taskListRepo;
     }
 
     public void execute(String taskListId) {
@@ -16,7 +18,9 @@ public class DeleteTaskListUseCase {
             throw new IllegalArgumentException("TaskList ID cannot be empty");
         }
 
-        domainController.deleteTaskList(taskListId);
+        TaskList taskList = taskListRepo.findById(taskListId).orElseThrow(() -> new IllegalArgumentException("TaskList not found"));
+
+       taskListRepo.deleteById(taskListId);
     }
 }
 

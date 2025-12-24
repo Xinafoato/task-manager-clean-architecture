@@ -10,36 +10,43 @@ public class TaskList {
     private String userId;
     private List<Task> tasks;
 
-    public TaskList(String id, String name, String userId) {
+    private TaskList(String id, String name, String userId) {
         this.id = id != null ? id : UUID.randomUUID().toString();
         this.name = name;
         this.userId = userId;
         this.tasks = new ArrayList<>();
     }
+
+    //Factory Method
+    public static TaskList create(String userId, String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("TaskList name cannot be null or empty");
+        }
+        if (userId == null || userId.isBlank()) {
+            throw new IllegalArgumentException("User ID cannot be null or empty");
+        }
+        return new TaskList(null, name, userId);
+    }
+
+    public void update(String newName) {
+        if (newName != null && !newName.isBlank()) {
+            this.name = newName;
+        }
+    }
+
     public String getId() {
         return id;
-    }
-    public void setId(String id) {
-        this.id = id;
     }
     public String getName() {
         return name;
     }
-    public void setName(String name) {
-        this.name = name;
-    }
     public String getUserId() {
         return userId;
-    }
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
     public List<Task> getTasks() {
         return tasks;
     }
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
+
 
     public void addTask(Task task){
         this.tasks.add(task);
