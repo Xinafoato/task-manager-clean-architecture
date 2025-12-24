@@ -12,9 +12,11 @@ public class Task {
     private Date dueDate;
     private Date createdAt;
     private Date updatedAt;
+    private String taskListId;
 
-    public Task(String id , String title, String description, Status status, Priority priority, Date dueDate) {
+    private Task(String id ,String taskListId, String title, String description, Status status, Priority priority, Date dueDate) {
         this.id = id != null? id: UUID.randomUUID().toString();
+        this.taskListId = taskListId;
         this.title = title;
         this.description = description;
         this.status = status;
@@ -23,6 +25,61 @@ public class Task {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
+
+    //Factory Method
+    public static Task create(
+            String taskListId,
+            String title,
+            String description,
+            Status status,
+            Priority priority,
+            Date dueDate
+    ) {
+        if (taskListId == null || taskListId.isBlank()) {
+            throw new IllegalArgumentException("TaskList ID cannot be null or empty");
+        }
+
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("Task title cannot be null or empty");
+        }
+
+        return new Task(
+                null, // id → domain generates
+                taskListId,
+                title,
+                description,
+                status != null ? status : Status.TODO,
+                priority != null ? priority : Priority.MEDIUM,
+                dueDate
+        );
+    }
+
+    public void update(
+            String newTitle,
+            String newDescription,
+            Priority newPriority,
+            Date newDueDate
+    ) {
+        if (newTitle != null && !newTitle.isBlank()) {
+            this.title = newTitle;
+        }
+
+        if (newDescription != null) {
+            this.description = newDescription;
+        }
+
+        if (newPriority != null) {
+            this.priority = newPriority;
+        }
+
+        if (newDueDate != null) {
+            this.dueDate = newDueDate;
+        }
+
+        this.updatedAt = new Date();
+    }
+
+
 
     public String getId() {
         return id;
@@ -48,10 +105,7 @@ public class Task {
     public Status getStatus() {
         return status;
     }
-    public void setStatus(Status status) {
-        this.status = status;
-        this.updatedAt = new Date();
-    }
+
     public Priority getPriority() {
         return priority;
     }
@@ -72,8 +126,22 @@ public class Task {
     public Date getUpdatedAt() {
         return updatedAt;
     }
+    public String getTaskListId() {
+        return taskListId;
+    }
+    public void setTaskListId(String taskListId) {
+        this.taskListId = taskListId;
+    }
+
     public void markAsDone(){
         this.status = Status.DONE;
+        this.updatedAt = new Date();
+    }
+    public void start() {
+        if (this.status != Status.TODO) {
+            throw new IllegalStateException("Task can only be started from TODO");
+        }
+        this.status = Status.IN_PROGRESS;
         this.updatedAt = new Date();
     }
 }

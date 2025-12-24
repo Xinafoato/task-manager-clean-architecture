@@ -2,14 +2,15 @@ package com.marti.application.usecases.task;
 
 import com.marti.application.dtos.task.AddTaskRequest;
 import com.marti.domain.model.Task;
-import com.marti.domain.service.DomainController;
+import com.marti.domain.repository.TaskRepository;
+
 
 public class AddTaskUseCase {
 
-    private final DomainController domainController;
+    private final TaskRepository taskRepo;
 
-    public AddTaskUseCase(DomainController domainController) {
-        this.domainController = domainController;
+    public AddTaskUseCase(TaskRepository taskRepo) {
+        this.taskRepo = taskRepo;
     }
 
     public Task execute(AddTaskRequest request) {
@@ -17,13 +18,10 @@ public class AddTaskUseCase {
             throw new IllegalArgumentException("Request cannot be null");
         }
 
-        return domainController.addTask(
-                request.taskListId(),
-                request.title(),
-                request.description(),
-                request.status(),
-                request.priority(),
-                request.dueDate()
-        );
+        Task task = Task.create(request.taskListId(), request.title(), request.description(), request.status(), request.priority(), request.dueDate());
+
+        taskRepo.save(task);
+
+        return task;
     }
 }

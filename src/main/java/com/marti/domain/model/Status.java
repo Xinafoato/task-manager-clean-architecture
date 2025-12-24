@@ -1,7 +1,7 @@
 package com.marti.domain.model;
 
 public enum Status {
-    PENDING,
+    TODO,
     IN_PROGRESS,
     DONE
 }

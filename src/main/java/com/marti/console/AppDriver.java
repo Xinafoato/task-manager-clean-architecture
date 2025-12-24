@@ -208,7 +208,7 @@ public class AppDriver {
 
                     System.out.print("Status (PENDING, IN_PROGRESS, DONE) [default TODO]: ");
                     String st = scanner.nextLine();
-                    Status status = st.isBlank() ? Status.PENDING : Status.valueOf(st.toUpperCase());
+                    Status status = st.isBlank() ? Status.TODO : Status.valueOf(st.toUpperCase());
 
                     System.out.print("Due date (yyyy-mm-dd, empty for none): ");
                     String dateStr = scanner.nextLine();
