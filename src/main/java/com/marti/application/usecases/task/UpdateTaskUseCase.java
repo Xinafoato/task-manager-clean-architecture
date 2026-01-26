@@ -24,11 +24,13 @@ public class UpdateTaskUseCase {
             throw new IllegalArgumentException("Task does not belong to the given TaskList");
         }
 
-        Priority priority;
-        try {
-            priority = Priority.valueOf(request.getNewPriority().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid priority: " + request.getNewPriority());
+        Priority priority = null;
+        if (request.getNewPriority() != null) {
+            try {
+                priority = Priority.valueOf(request.getNewPriority().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid priority: " + request.getNewPriority());
+            }
         }
 
         task.update(

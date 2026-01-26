@@ -22,19 +22,24 @@ public class AddTaskUseCase {
             throw new IllegalArgumentException("Request cannot be null");
         }
 
-        Status status;
-        Priority priority;
+        Status status = null;
+        Priority priority = null;
 
-        try {
-            status = Status.valueOf(request.status().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid status: " + request.status());
+        if (request.status() != null) {
+            try {
+                status = Status.valueOf(request.status().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid status: " + request.status());
+            }
         }
 
-        try {
-            priority = Priority.valueOf(request.priority().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid priority: " + request.priority());
+
+        if (request.priority() != null) {
+            try {
+                priority = Priority.valueOf(request.priority().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid priority: " + request.priority());
+            }
         }
 
         Task task = Task.create(request.taskListId(), request.title(), request.description(), status, priority, request.dueDate());
