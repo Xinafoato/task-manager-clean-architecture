@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CompleteTaskUseCaseTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-12-24T17:31:48.835Z" hostname="LAPTOP-ES82C2L4" time="0.071">
+  <properties/>
+  <testcase name="should_complete_task_when_task_exists_and_belongs_to_task_list()" classname="CompleteTaskUseCaseTest" time="0.05"/>
+  <testcase name="should_throw_exception_when_task_does_not_exist()" classname="CompleteTaskUseCaseTest" time="0.009"/>
+  <testcase name="should_throw_exception_when_task_does_not_belong_to_task_list()" classname="CompleteTaskUseCaseTest" time="0.008"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

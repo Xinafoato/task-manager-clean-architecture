@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="StartTaskUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T17:31:49.028Z" hostname="LAPTOP-ES82C2L4" time="0.028">
+  <properties/>
+  <testcase name="shouldThrowExceptionIfTaskNotFound()" classname="StartTaskUseCaseTest" time="0.011"/>
+  <testcase name="shouldStartTaskSuccessfully()" classname="StartTaskUseCaseTest" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

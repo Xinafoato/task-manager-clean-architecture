@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UpdateTaskUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T17:31:49.069Z" hostname="LAPTOP-ES82C2L4" time="0.069">
+  <properties/>
+  <testcase name="shouldUpdateTaskSuccessfully()" classname="UpdateTaskUseCaseTest" time="0.013"/>
+  <testcase name="shouldThrowExceptionWhenTaskNotFound()" classname="UpdateTaskUseCaseTest" time="0.055"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

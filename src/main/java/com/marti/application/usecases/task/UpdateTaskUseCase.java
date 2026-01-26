@@ -1,6 +1,7 @@
 package com.marti.application.usecases.task;
 
 import com.marti.application.dtos.task.UpdateTaskRequest;
+import com.marti.domain.model.Priority;
 import com.marti.domain.model.Task;
 import com.marti.domain.repository.TaskRepository;
 
@@ -23,10 +24,19 @@ public class UpdateTaskUseCase {
             throw new IllegalArgumentException("Task does not belong to the given TaskList");
         }
 
+        Priority priority = null;
+        if (request.getNewPriority() != null) {
+            try {
+                priority = Priority.valueOf(request.getNewPriority().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Invalid priority: " + request.getNewPriority());
+            }
+        }
+
         task.update(
                 request.getNewTitle(),
                 request.getNewDescription(),
-                request.getNewPriority(),
+                priority,
                 request.getNewDueDate()
         );
 
