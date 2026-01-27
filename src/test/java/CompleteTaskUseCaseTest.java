@@ -35,7 +35,8 @@ class CompleteTaskUseCaseTest {
                 "Description",
                 Status.IN_PROGRESS,
                 null,
-                null
+                null,
+                "user1"
         );
     }
 

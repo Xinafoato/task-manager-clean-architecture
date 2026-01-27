@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Task {
+    private String userId;
     private String id;
     private String title;
     private String description;
@@ -14,7 +15,7 @@ public class Task {
     private Date updatedAt;
     private String taskListId;
 
-    private Task(String id ,String taskListId, String title, String description, Status status, Priority priority, Date dueDate) {
+    private Task(String id ,String taskListId, String title, String description, Status status, Priority priority, Date dueDate, String userId) {
         this.id = id != null? id: UUID.randomUUID().toString();
         this.taskListId = taskListId;
         this.title = title;
@@ -24,6 +25,7 @@ public class Task {
         this.dueDate = dueDate;
         this.createdAt = new Date();
         this.updatedAt = new Date();
+        this.userId = userId;
     }
 
     //Factory Method
@@ -33,7 +35,8 @@ public class Task {
             String description,
             Status status,
             Priority priority,
-            Date dueDate
+            Date dueDate,
+            String userId
     ) {
         if (taskListId == null || taskListId.isBlank()) {
             throw new IllegalArgumentException("TaskList ID cannot be null or empty");
@@ -50,7 +53,8 @@ public class Task {
                 description,
                 status != null ? status : Status.TODO,
                 priority != null ? priority : Priority.MEDIUM,
-                dueDate
+                dueDate,
+                userId
         );
     }
 
@@ -143,5 +147,8 @@ public class Task {
         }
         this.status = Status.IN_PROGRESS;
         this.updatedAt = new Date();
+    }
+    public String getUserId() {
+        return userId;
     }
 }

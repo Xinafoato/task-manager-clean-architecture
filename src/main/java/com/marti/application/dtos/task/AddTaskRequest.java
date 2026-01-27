@@ -11,5 +11,6 @@ public record AddTaskRequest(
         String description,
         String status,
         Date dueDate,
-        String priority
+        String priority,
+        String userId
 ) {}

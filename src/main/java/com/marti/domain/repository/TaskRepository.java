@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface TaskRepository {
 
-    Task save(Task task);
+    void save(Task task);
 
     Optional<Task> findById(String taskId);
 

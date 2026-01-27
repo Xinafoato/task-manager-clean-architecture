@@ -42,7 +42,7 @@ public class AddTaskUseCase {
             }
         }
 
-        Task task = Task.create(request.taskListId(), request.title(), request.description(), status, priority, request.dueDate());
+        Task task = Task.create(request.taskListId(), request.title(), request.description(), status, priority, request.dueDate(), request.userId());
 
         taskRepo.save(task);
 
