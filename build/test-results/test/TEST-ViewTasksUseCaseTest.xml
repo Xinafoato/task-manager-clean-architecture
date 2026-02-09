@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ViewTasksUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T17:31:49.149Z" hostname="LAPTOP-ES82C2L4" time="0.027">
+<testsuite name="ViewTasksUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-09T09:35:22" hostname="XINAFOATO" time="0.006">
   <properties/>
-  <testcase name="shouldThrowExceptionWhenTaskListIdIsEmpty()" classname="ViewTasksUseCaseTest" time="0.005"/>
-  <testcase name="shouldReturnTasksForTaskList()" classname="ViewTasksUseCaseTest" time="0.021"/>
+  <testcase name="shouldThrowExceptionWhenTaskListIdIsEmpty()" classname="ViewTasksUseCaseTest" time="0.001"/>
+  <testcase name="shouldReturnTasksForTaskList()" classname="ViewTasksUseCaseTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

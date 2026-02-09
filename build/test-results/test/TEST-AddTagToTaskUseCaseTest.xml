@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="AddTagToTaskUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T17:31:47.056Z" hostname="LAPTOP-ES82C2L4" time="1.486">
+<testsuite name="AddTagToTaskUseCaseTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-09T09:35:21" hostname="XINAFOATO" time="0.87">
   <properties/>
-  <testcase name="shouldThrowExceptionWhenTagIsEmpty()" classname="AddTagToTaskUseCaseTest" time="1.398"/>
-  <testcase name="shouldAddTagSuccessfully()" classname="AddTagToTaskUseCaseTest" time="0.076"/>
+  <testcase name="shouldThrowExceptionWhenTagIsEmpty()" classname="AddTagToTaskUseCaseTest" time="0.815"/>
+  <testcase name="shouldAddTagSuccessfully()" classname="AddTagToTaskUseCaseTest" time="0.047"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\marti\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.12\be4984cb6fd1ef1d11f218a648889dfda44b8a15\byte-buddy-agent-1.14.12.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning

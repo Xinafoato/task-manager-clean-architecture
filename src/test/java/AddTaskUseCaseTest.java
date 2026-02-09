@@ -36,7 +36,8 @@ class AddTaskUseCaseTest {
                 "Description",
                 "TODO",
                 new Date(2025, 0, 1),
-                null
+                null,
+                "user1"
         );
 
         TaskDTO result = useCase.execute(request);
