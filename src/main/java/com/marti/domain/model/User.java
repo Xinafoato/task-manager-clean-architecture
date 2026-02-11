@@ -31,6 +31,9 @@ public class User {
 
         return new User(null, username, email, passwordHash);
     }
+    public static User reconstruct(String id, String username, String email, String passwordHash) {
+        return new User(id, username, email, passwordHash);
+    }
 
     public String getId() {
         return id;

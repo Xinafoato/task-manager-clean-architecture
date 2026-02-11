@@ -22,11 +22,13 @@ public class LogInUseCase {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
-        User user = userRepo.findByEmailAndPassword(request.getEmail(), request.getPasswordHash()).orElseThrow(() -> new IllegalArgumentException("User or password incorrect"));
+        User user = userRepo.findByEmail(request.getEmail()).orElseThrow(() -> new IllegalArgumentException("User or password incorrect"));
         if (user == null) {
-            throw new IllegalArgumentException("Invalid email or password");
+            throw new IllegalArgumentException("Invalid email");
         }
-
+        if (!user.getPasswordHash().equals(request.getPasswordHash())) {
+            throw new IllegalArgumentException("Invalid Password");
+        }
         return new LogInResponse(user.getId(), user.getUsername(), user.getEmail());
     }
 }

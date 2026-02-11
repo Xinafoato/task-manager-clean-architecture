@@ -10,11 +10,11 @@ public class TaskList {
     private String userId;
     private List<Task> tasks;
 
-    private TaskList(String id, String name, String userId) {
+    private TaskList(String id, String name, String userId, List<Task> tasks) {
         this.id = id != null ? id : UUID.randomUUID().toString();
         this.name = name;
         this.userId = userId;
-        this.tasks = new ArrayList<>();
+        this.tasks = tasks != null ? tasks : new ArrayList<>();
     }
 
     //Factory Method
@@ -25,7 +25,11 @@ public class TaskList {
         if (userId == null || userId.isBlank()) {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
-        return new TaskList(null, name, userId);
+        return new TaskList(null, name, userId, null);
+    }
+
+    public static TaskList reconstruct (String Id, String userId, String name, List<Task> tasks) {
+        return new TaskList(Id,name,userId,tasks);
     }
 
     public void update(String newName) {

@@ -1,16 +1,17 @@
-package com.marti.application.console;
+package com.marti.console;
 
 import com.marti.application.usecases.task.AddTaskUseCase;
 import com.marti.application.usecases.task.CompleteTaskUseCase;
 import com.marti.application.usecases.task.ViewTasksUseCase;
 import com.marti.console.ui.ConsoleUI;
 import com.marti.domain.repository.TaskRepository;
+import com.marti.infrastructure.persistence.DatabaseInitializer;
 import com.marti.infrastructure.persistence.InMemoryTaskRepository;
 
 public class AppDriver {
 
     public static void main(String[] args) {
-
+        DatabaseInitializer.init();
         // Infrastructure
         TaskRepository taskRepository = new InMemoryTaskRepository();
 

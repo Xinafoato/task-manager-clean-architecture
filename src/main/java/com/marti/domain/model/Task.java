@@ -58,6 +58,13 @@ public class Task {
         );
     }
 
+    public static Task reconstruct(String id, String taskListId, String title, String description, Status status, Priority priority, Date dueDate, java.sql.Date createdAt, java.sql.Date updatedAt, String userId) {
+        Task task = new Task(id, taskListId, title, description, status, priority, dueDate, userId);
+        task.createdAt = createdAt;
+        task.updatedAt = updatedAt;
+        return task;
+    }
+
     public void update(
             String newTitle,
             String newDescription,
