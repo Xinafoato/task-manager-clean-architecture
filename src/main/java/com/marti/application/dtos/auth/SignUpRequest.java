@@ -2,9 +2,9 @@ package com.marti.application.dtos.auth;
 
 public class SignUpRequest {
 
-    private final String username;
-    private final String email;
-    private final String passwordHash;
+    private  String username;
+    private  String email;
+    private  String passwordHash;
 
     public SignUpRequest(String username, String email, String passwordHash) {
         this.username = username;

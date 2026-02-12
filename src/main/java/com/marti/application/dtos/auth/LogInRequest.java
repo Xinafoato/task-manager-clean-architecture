@@ -1,10 +1,10 @@
 package com.marti.application.dtos.auth;
 
 public class LogInRequest {
-    private final String email;
-    private final String passwordHash;
+    private  String email;
+    private  String passwordHash;
 
-    public LogInRequest(String username, String email, String passwordHash) {
+    public LogInRequest(String email, String passwordHash) {
         this.email = email;
         this.passwordHash = passwordHash;
     }

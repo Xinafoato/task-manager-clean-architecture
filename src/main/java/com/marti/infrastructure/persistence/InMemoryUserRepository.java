@@ -38,4 +38,8 @@ public class InMemoryUserRepository implements UserRepository {
     public void deleteById(String userId) {
         storage.remove(userId);
     }
+    @Override
+    public void deleteByEmail(String email) {
+        storage.remove(email);
+    }
 }

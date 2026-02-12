@@ -129,4 +129,22 @@ public class UserRepositorySQLite implements UserRepository {
             throw new RuntimeException("Error deleting user", e);
         }
     }
+
+    @Override
+    public void deleteByEmail(String email) {
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String sql = "DELETE FROM users WHERE email = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, email);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                if (rowsAffected == 0) {
+                    throw new IllegalArgumentException("User not found with email: " + email);
+                }
+            }
+        }catch (Exception e) {
+            throw new RuntimeException("Error deleting user", e);
+        }
+    }
 }

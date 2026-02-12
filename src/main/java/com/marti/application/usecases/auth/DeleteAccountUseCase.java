@@ -15,7 +15,17 @@ public class DeleteAccountUseCase {
             throw new IllegalArgumentException("User ID cannot be null or empty");
         }
 
-        userRepo.findById(userId);
+        userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        userRepo.deleteById(userId);
+    }
+
+    public void executeByEmail(String email) {
+        userRepo.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        userRepo.deleteByEmail(email);
 
     }
 }
