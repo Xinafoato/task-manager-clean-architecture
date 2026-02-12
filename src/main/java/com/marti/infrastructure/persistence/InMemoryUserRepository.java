@@ -27,15 +27,6 @@ public class InMemoryUserRepository implements UserRepository {
                 .findFirst();
     }
 
-    @Override
-    public Optional<User> findByEmailAndPassword(String email, String password) {
-        return storage.values().stream()
-                .filter(user ->
-                        user.getEmail().equalsIgnoreCase(email)
-                                && user.getPasswordHash().equals(password)
-                )
-                .findFirst();
-    }
 
     @Override
     public boolean existsByEmail(String email) {

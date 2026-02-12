@@ -16,7 +16,7 @@ public class TaskListRepositorySQLite implements TaskListRepository {
     @Override
     public TaskList save(TaskList taskList) {
 
-        String sql = "INSERT INTO task_lists (id, name, user_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO task_lists (id, name, userId) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -37,7 +37,7 @@ public class TaskListRepositorySQLite implements TaskListRepository {
     @Override
     public Optional<TaskList> findById(String taskListId) {
 
-        String sql = "SELECT id, name, user_id FROM task_lists WHERE id = ?";
+        String sql = "SELECT id, name, userId FROM task_lists WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -51,7 +51,7 @@ public class TaskListRepositorySQLite implements TaskListRepository {
 
             String id = rs.getString("id");
             String name = rs.getString("name");
-            String userId = rs.getString("user_id");
+            String userId = rs.getString("userId");
 
             // ORM para cargar las tasks
             List<Task> tasks = loadTasksByTaskListId(conn, id);
@@ -68,7 +68,7 @@ public class TaskListRepositorySQLite implements TaskListRepository {
     @Override
     public List<TaskList> findByUserId(String userId) {
 
-        String sql = "SELECT id, name, user_id FROM task_lists WHERE user_id = ?";
+        String sql = "SELECT id, name, userId FROM task_lists WHERE userId = ?";
 
         List<TaskList> taskLists = new ArrayList<>();
 
@@ -100,7 +100,7 @@ public class TaskListRepositorySQLite implements TaskListRepository {
     @Override
     public boolean existsByNameAndUserId(String name, String userId) {
 
-        String sql = "SELECT 1 FROM task_lists WHERE name = ? AND user_id = ?";
+        String sql = "SELECT 1 FROM task_lists WHERE name = ? AND userId = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -143,9 +143,9 @@ public class TaskListRepositorySQLite implements TaskListRepository {
 
         String sql = """
                
-                SELECT id, title, description, status, priority, due_date, created_at, updated_at, user_id, task_list_id
+                SELECT id, taskListId, title, description, status, priority, dueDate, createdAt, updatedAt, userId 
                 FROM tasks
-                WHERE task_list_id = ?
+                WHERE taskListId = ?
                 """;
 
         List<Task> tasks = new ArrayList<>();
@@ -160,15 +160,15 @@ public class TaskListRepositorySQLite implements TaskListRepository {
 
                 Task task = Task.reconstruct(
                         rs.getString("id"),
-                        rs.getString("task_list_id"),
+                        rs.getString("taskListId"),
                         rs.getString("title"),
                         rs.getString("description"),
                         Status.valueOf(rs.getString("status")),
                         Priority.valueOf(rs.getString("priority")),
-                        rs.getTimestamp("due_date") != null ? new Date(rs.getTimestamp("due_date").getTime()) : null,
-                        new Date(rs.getTimestamp("created_at").getTime()),
-                        new Date(rs.getTimestamp("updated_at").getTime()),
-                        rs.getString("user_id")
+                        rs.getTimestamp("dueDate") != null ? new Date(rs.getTimestamp("dueDate").getTime()) : null,
+                        new Date(rs.getTimestamp("createdAt").getTime()),
+                        new Date(rs.getTimestamp("updatedAt").getTime()),
+                        rs.getString("userId")
 
                 );
 

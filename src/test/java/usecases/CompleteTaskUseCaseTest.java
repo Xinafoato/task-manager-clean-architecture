@@ -1,4 +1,4 @@
-
+package usecases;
 
 import com.marti.application.usecases.task.CompleteTaskUseCase;
 import com.marti.domain.model.Status;

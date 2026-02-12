@@ -1,6 +1,6 @@
+package usecases;
 
-
-import com.marti.application.usecases.task.RemoveTagFromTaskUseCase;
+import com.marti.application.usecases.task.AddTagToTaskUseCase;
 import com.marti.domain.service.DomainController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,30 +10,30 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class RemoveTagFromTaskUseCaseTest {
+class AddTagToTaskUseCaseTest {
 
     @Mock
     private DomainController domainController;
 
-    private RemoveTagFromTaskUseCase useCase;
+    private AddTagToTaskUseCase useCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        useCase = new RemoveTagFromTaskUseCase(domainController);
+        useCase = new AddTagToTaskUseCase(domainController);
     }
 
     @Test
-    void shouldRemoveTagSuccessfully() {
+    void shouldAddTagSuccessfully() {
         useCase.execute("list1", "task1", "urgent");
 
         verify(domainController)
-                .removeTagFromTask("list1", "task1", "urgent");
+                .addTagToTask("list1", "task1", "urgent");
     }
 
     @Test
-    void shouldThrowExceptionWhenTaskIdIsNull() {
+    void shouldThrowExceptionWhenTagIsEmpty() {
         assertThrows(IllegalArgumentException.class,
-                () -> useCase.execute("list1", null, "urgent"));
+                () -> useCase.execute("list1", "task1", ""));
     }
 }
