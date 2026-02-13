@@ -1,7 +1,5 @@
 package com.marti.application.dtos.task;
 
-import com.marti.domain.model.Priority;
-
 import java.util.Date;
 
 public class UpdateTaskRequest {

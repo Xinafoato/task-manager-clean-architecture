@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    application
 }
 
 group = "com.marti"
@@ -19,9 +20,14 @@ dependencies {
     testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
     implementation("org.xerial:sqlite-jdbc:3.42.0.0")
     implementation("io.javalin:javalin:5.6.1")
+    implementation("org.slf4j:slf4j-simple:2.0.7")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.0")
 
+}
+
+application {
+    mainClass.set("com.marti.infrastructure.server.UnifiedServer")
 }
 
 tasks.test {

@@ -1,7 +1,6 @@
 package com.marti.application.usecases.task;
 
 
-import com.marti.domain.model.Task;
 import com.marti.domain.service.DomainController;
 
 public class RemoveTagFromTaskUseCase {

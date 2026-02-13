@@ -1,8 +1,5 @@
 package com.marti.application.dtos.task;
 
-import com.marti.domain.model.Priority;
-import com.marti.domain.model.Status;
-
 import java.util.Date;
 
 public record AddTaskRequest(
