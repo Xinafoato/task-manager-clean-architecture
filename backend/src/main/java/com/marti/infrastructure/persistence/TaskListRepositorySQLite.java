@@ -138,6 +138,28 @@ public class TaskListRepositorySQLite implements TaskListRepository {
         }
     }
 
+    @Override
+    public void updateName(String taskListId, String newName) {
+
+        String sql = "UPDATE task_lists SET name = ? WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, newName);
+            stmt.setString(2, taskListId);
+
+            int rows = stmt.executeUpdate();
+
+            if (rows == 0) {
+                throw new IllegalArgumentException("Task list not found with id: " + taskListId);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error updating task list name", e);
+        }
+    }
+
     // Metodo para cargar tasks
     private List<Task> loadTasksByTaskListId(Connection conn, String taskListId) throws SQLException {
 
@@ -178,4 +200,6 @@ public class TaskListRepositorySQLite implements TaskListRepository {
 
         return tasks;
     }
+
+
 }

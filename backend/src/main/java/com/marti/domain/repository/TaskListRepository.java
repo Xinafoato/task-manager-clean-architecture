@@ -16,4 +16,6 @@ public interface TaskListRepository {
     boolean existsByNameAndUserId(String name, String userId);
 
     void deleteById(String taskListId);
+
+    void updateName(String taskListId, String newName);
 }

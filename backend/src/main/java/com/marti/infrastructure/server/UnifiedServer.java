@@ -27,9 +27,14 @@ public class UnifiedServer {
         // Inicializar la base de datos
         DatabaseInitializer.init();
 
-        Javalin app = Javalin.create(config -> config.showJavalinBanner = false)
-                .start(7000);
-
+        Javalin app = Javalin.create(config -> {
+            config.showJavalinBanner = false;
+            config.plugins.enableCors(cors -> {
+                cors.add(it -> {
+                    it.anyHost();
+                });
+            });
+        }).start(7000);
         app.before(ctx -> ctx.contentType("application/json"));
 
         app.exception(Exception.class, (e, ctx) -> {

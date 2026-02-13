@@ -41,4 +41,16 @@ public class InMemoryTaskListRepository implements TaskListRepository {
     public void deleteById(String taskListId) {
         storage.remove(taskListId);
     }
+
+    @Override
+    public void updateName(String taskListId, String newName) {
+
+        TaskList taskList = storage.get(taskListId);
+
+        if (taskList == null) {
+            throw new IllegalArgumentException("Task list not found with id: " + taskListId);
+        }
+
+        taskList.update(newName);
+    }
 }

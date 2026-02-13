@@ -1,6 +1,6 @@
 package com.marti.application.usecases.taskList;
 
-import com.marti.domain.model.TaskList;
+
 import com.marti.domain.repository.TaskListRepository;
 
 public class RenameTaskListUseCase {
@@ -22,10 +22,9 @@ public class RenameTaskListUseCase {
             throw new IllegalArgumentException("New name cannot be empty");
         }
 
-        TaskList taskList = taskListRepo.findById(taskListId).orElseThrow(() -> new IllegalArgumentException("TaskList Not Found"));
 
-        taskList.update(newName);
+        taskListRepo.findById(taskListId).orElseThrow(() -> new IllegalArgumentException("TaskList Not Found"));
 
-        taskListRepo.save(taskList);
+        taskListRepo.updateName(taskListId, newName);
     }
 }
