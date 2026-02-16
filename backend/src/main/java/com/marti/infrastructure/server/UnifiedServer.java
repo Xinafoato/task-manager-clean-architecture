@@ -42,8 +42,7 @@ public class UnifiedServer {
             ctx.status(500).json(Map.of(
                     "title", "Server Error",
                     "status", 500,
-                    "details", e.getMessage()
-            ));
+                    "details", e.getMessage()));
         });
 
         Gson gson = new Gson();
@@ -63,6 +62,7 @@ public class UnifiedServer {
         DeleteTaskUseCase deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
         CompleteTaskUseCase completeTaskUseCase = new CompleteTaskUseCase(taskRepository);
         StartTaskUseCase startTaskUseCase = new StartTaskUseCase(taskRepository);
+        ReopenTaskUseCase reopenTaskUseCase = new ReopenTaskUseCase(taskRepository);
         ViewTasksUseCase viewTasksUseCase = new ViewTasksUseCase(taskRepository);
         AddTagToTaskUseCase addTagUseCase = new AddTagToTaskUseCase(domainController);
         RemoveTagFromTaskUseCase removeTagUseCase = new RemoveTagFromTaskUseCase(domainController);
@@ -181,6 +181,13 @@ public class UnifiedServer {
             String taskId = ctx.pathParam("taskId");
             String taskListId = ctx.queryParam("taskListId");
             completeTaskUseCase.execute(taskListId, taskId);
+            ctx.status(204);
+        });
+
+        app.post("/tasks/{taskId}/reopen", ctx -> {
+            String taskId = ctx.pathParam("taskId");
+            String taskListId = ctx.queryParam("taskListId");
+            reopenTaskUseCase.execute(taskListId, taskId);
             ctx.status(204);
         });
 

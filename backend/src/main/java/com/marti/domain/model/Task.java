@@ -15,8 +15,9 @@ public class Task {
     private Date updatedAt;
     private String taskListId;
 
-    private Task(String id ,String taskListId, String title, String description, Status status, Priority priority, Date dueDate, String userId) {
-        this.id = id != null? id: UUID.randomUUID().toString();
+    private Task(String id, String taskListId, String title, String description, Status status, Priority priority,
+            Date dueDate, String userId) {
+        this.id = id != null ? id : UUID.randomUUID().toString();
         this.taskListId = taskListId;
         this.title = title;
         this.description = description;
@@ -28,7 +29,7 @@ public class Task {
         this.userId = userId;
     }
 
-    //Factory Method
+    // Factory Method
     public static Task create(
             String taskListId,
             String title,
@@ -36,8 +37,7 @@ public class Task {
             Status status,
             Priority priority,
             Date dueDate,
-            String userId
-    ) {
+            String userId) {
         if (taskListId == null || taskListId.isBlank()) {
             throw new IllegalArgumentException("TaskList ID cannot be null or empty");
         }
@@ -54,11 +54,11 @@ public class Task {
                 status != null ? status : Status.TODO,
                 priority != null ? priority : Priority.MEDIUM,
                 dueDate,
-                userId
-        );
+                userId);
     }
 
-    public static Task reconstruct(String id, String taskListId, String title, String description, Status status, Priority priority, Date dueDate, Date createdAt, Date updatedAt, String userId) {
+    public static Task reconstruct(String id, String taskListId, String title, String description, Status status,
+            Priority priority, Date dueDate, Date createdAt, Date updatedAt, String userId) {
         Task task = new Task(id, taskListId, title, description, status, priority, dueDate, userId);
         task.createdAt = createdAt;
         task.updatedAt = updatedAt;
@@ -69,8 +69,7 @@ public class Task {
             String newTitle,
             String newDescription,
             Priority newPriority,
-            Date newDueDate
-    ) {
+            Date newDueDate) {
         if (newTitle != null && !newTitle.isBlank()) {
             this.title = newTitle;
         }
@@ -90,29 +89,33 @@ public class Task {
         this.updatedAt = new Date();
     }
 
-
-
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
         this.updatedAt = new Date();
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
         this.updatedAt = new Date();
     }
+
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
         this.updatedAt = new Date();
     }
+
     public Status getStatus() {
         return status;
     }
@@ -120,34 +123,42 @@ public class Task {
     public Priority getPriority() {
         return priority;
     }
+
     public void setPriority(Priority priority) {
         this.priority = priority;
         this.updatedAt = new Date();
     }
+
     public Date getDueDate() {
         return dueDate;
     }
+
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
         this.updatedAt = new Date();
     }
+
     public Date getCreatedAt() {
         return createdAt;
     }
+
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
     public String getTaskListId() {
         return taskListId;
     }
+
     public void setTaskListId(String taskListId) {
         this.taskListId = taskListId;
     }
 
-    public void markAsDone(){
+    public void markAsDone() {
         this.status = Status.DONE;
         this.updatedAt = new Date();
     }
+
     public void start() {
         if (this.status != Status.TODO) {
             throw new IllegalStateException("Task can only be started from TODO");
@@ -155,6 +166,15 @@ public class Task {
         this.status = Status.IN_PROGRESS;
         this.updatedAt = new Date();
     }
+
+    public void reopen() {
+        if (this.status != Status.DONE) {
+            throw new IllegalStateException("Only completed tasks can be reopened");
+        }
+        this.status = Status.TODO;
+        this.updatedAt = new Date();
+    }
+
     public String getUserId() {
         return userId;
     }

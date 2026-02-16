@@ -1,0 +1,414 @@
+/* Main Layout - Consistent with TaskLists */
+.container {
+    min-height: 100vh;
+    padding: 24px 40px;
+    /* Reduced top padding slightly */
+    background-color: #f0f2f5;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;  <-- Removed to allow full width */
+}
+
+/* Header Section */
+.headerSection {
+    width: 100%;
+    /* max-width: 800px; <-- Removed */
+    margin-bottom: 32px;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+/* ... existing button and title styles ... */
+
+/* Layout Grid */
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    width: 100%;
+    /* max-width: 1200px; <-- Removed */
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@media (min-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 1fr 450px;
+        /* Increased calendar width */
+        align-items: start;
+        gap: 48px;
+        /* More gap */
+    }
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: #57606f;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 8px 0;
+    transition: color 0.2s;
+}
+
+.backButton:hover {
+    color: #1a1a1a;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.03em;
+}
+
+/* Input Area */
+.inputGroup {
+    display: flex;
+    gap: 12px;
+    background: #ffffff;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.inputGroup:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    font-size: 1.1rem;
+    outline: none;
+    background: transparent;
+}
+
+.addButton {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.addButton:hover {
+    background-color: #333333;
+}
+
+.addButton:active {
+    transform: scale(0.98);
+}
+
+/* Layout Grid */
+/* Sort Controls */
+.sortControls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.sortLabel {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #636e72;
+    margin-right: 4px;
+}
+
+.sortButton {
+    padding: 8px 16px;
+    border: 1px solid #e1e4e8;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #636e72;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.sortButton:hover {
+    border-color: #4a90d9;
+    color: #4a90d9;
+    background: rgba(74, 144, 217, 0.05);
+}
+
+.sortActive {
+    background: linear-gradient(135deg, #4a90d9, #357abd);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 2px 8px rgba(74, 144, 217, 0.3);
+}
+
+.sortActive:hover {
+    background: linear-gradient(135deg, #357abd, #2a6aaa);
+    color: #ffffff;
+    border-color: transparent;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    width: 100%;
+    /* max-width removed */
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@media (min-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 3fr 2fr;
+        /* 60% Task List, 40% Calendar */
+        align-items: start;
+        gap: 40px;
+    }
+}
+
+/* Task List - remove animation here if moving to grid */
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.taskItem {
+    display: flex;
+    /**/
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+    border-left: 4px solid #e1e4e8;
+    /* Default border */
+}
+
+.taskItem:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.taskItem.completed {
+    background-color: #f8f9fa;
+    border-left-color: #4CAF50;
+}
+
+.taskContent {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+}
+
+.checkbox {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    border-radius: 6px;
+    border: 2px solid #e1e4e8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    margin-top: 4px;
+    /* Align with title */
+}
+
+.checkbox.checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    color: white;
+}
+
+.taskDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.taskTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #2d3436;
+    transition: color 0.2s;
+}
+
+.taskTitle.completedText {
+    color: #b2bec3;
+    text-decoration: line-through;
+}
+
+.taskDescription {
+    font-size: 0.95rem;
+    color: #636e72;
+    line-height: 1.5;
+}
+
+.metaTags {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.1s;
+}
+
+.badge:active {
+    transform: scale(0.95);
+}
+
+.badgePriorityHIGH {
+    background-color: #ffe0e0;
+    color: #d63031;
+}
+
+.badgePriorityMEDIUM {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.badgePriorityLOW {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Priority Borders */
+.taskItem.priorityHIGH {
+    border-left-color: #d63031;
+}
+
+.taskItem.priorityMEDIUM {
+    border-left-color: #ffc107;
+}
+
+.taskItem.priorityLOW {
+    border-left-color: #4CAF50;
+}
+
+.badgeStatus {
+    background-color: #e1f5fe;
+    color: #0277bd;
+}
+
+.deleteButton {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    padding: 8px;
+    border-radius: 50%;
+    margin-left: 12px;
+    align-self: center;
+}
+
+.taskItem:hover .deleteButton {
+    opacity: 1;
+}
+
+.deleteButton:hover {
+    background-color: #fff0f0;
+    transform: scale(1.1);
+}
+
+.emptyState {
+    text-align: center;
+    padding: 60px;
+    color: #a4b0be;
+    font-size: 1.2rem;
+    border: 2px dashed #e1e4e8;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dueDate {
+    font-size: 0.85rem;
+    color: #636e72;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background-color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #dfe6e9;
+}
+
+.overdue {
+    color: #d63031;
+    font-weight: 700;
+    border-color: #fab1a0;
+    background-color: #fff5f5;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -14,7 +14,6 @@ public class SignUpUseCase {
 
     public SignUpResponse execute(SignUpRequest request) {
 
-
         if (request.getUsername() == null || request.getUsername().isBlank()) {
             throw new IllegalArgumentException("Username cannot be empty");
         }
@@ -27,6 +26,9 @@ public class SignUpUseCase {
             throw new IllegalArgumentException("Password cannot be empty");
         }
 
+        if (userRepo.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("An account with this email already exists");
+        }
 
         User user = User.create(request.getUsername(), request.getEmail(), request.getPasswordHash());
 
@@ -35,4 +37,3 @@ public class SignUpUseCase {
         return new SignUpResponse(user.getId(), user.getUsername(), user.getEmail());
     }
 }
-
