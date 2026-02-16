@@ -3,76 +3,177 @@
 ![Java](https://img.shields.io/badge/Java-21-blue)
 ![Gradle](https://img.shields.io/badge/Build-Gradle-green)
 ![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-orange)
-![Database](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20SQLite-lightgrey)
 ![Testing](https://img.shields.io/badge/Testing-JUnit-red)
 
 Backend service for the **Task Manager Clean Architecture** project.
 
-This module implements the business logic following strict Clean Architecture principles, ensuring scalability, testability, and framework independence.
+This module implements the business logic following strict Clean Architecture principles, ensuring scalability, testability, and separation of concerns.
 
 ---
 
 # 🚀 Overview
 
-The backend provides a REST API that allows:
+The backend provides a REST API and application logic that allows:
 
+- User authentication
 - Create task lists
-- Retrieve task lists by user
-- Rename task lists
-- Delete task lists
-- Persist data in a relational database
+- Manage tasks
+- Rename and delete task lists
+- Persist data in database
+- Console-based interaction (CLI layer)
 
-The architecture separates core business rules from infrastructure concerns.
+The system is designed to be independent from frameworks and external technologies.
 
 ---
 
-# 🧠 Backend Architecture
+# 🧠 Real Project Architecture
 
 ```
 backend
 │
-└── src
-    └── main
-        └── java
-            └── com.marti
-                ├── domain
-                │   ├── model
-                │   └── repository
-                │
-                ├── application
-                │   └── usecase
-                │
-                ├── infrastructure
-                │   └── persistence
-                │
-                └── presentation
-                    └── controller
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com.marti
+│   │   │       │
+│   │   │       ├── application
+│   │   │       │   ├── dtos
+│   │   │       │   │   ├── auth
+│   │   │       │   │   ├── task
+│   │   │       │   │   └── taskList
+│   │   │       │   │
+│   │   │       │   ├── mappers
+│   │   │       │   │
+│   │   │       │   └── usecases
+│   │   │       │       ├── auth
+│   │   │       │       ├── task
+│   │   │       │       └── taskList
+│   │   │       │
+│   │   │       ├── console
+│   │   │       │   └── ui
+│   │   │       │
+│   │   │       ├── domain
+│   │   │       │   ├── model
+│   │   │       │   ├── repository
+│   │   │       │   └── service
+│   │   │       │
+│   │   │       └── infrastructure
+│   │   │           ├── persistence
+│   │   │           └── server
+│   │   │
+│   │   └── resources
+│   │
+│   └── test
+│       └── java
+│           ├── persistence
+│           └── usecases
+│
+├── build.gradle.kts
+└── settings.gradle.kts
 ```
 
 ---
 
-## 📌 Layer Responsibilities
+# 🧩 Layer Explanation
 
-### Domain
-- Enterprise business rules
-- Entities (TaskList, Task, User)
+## 🟢 Domain Layer (Core Business)
+
+```
+domain
+├── model
+├── repository
+└── service
+```
+
+- Contains enterprise business rules
+- Entities like TaskList, Task, User
 - Repository interfaces
-- No framework dependencies
+- Domain services
+- No external framework dependencies
 
-### Application
-- Use cases
-- Orchestrates domain logic
-- Calls repository interfaces
+This layer is completely independent.
 
-### Infrastructure
-- Database implementation
+---
+
+## 🔵 Application Layer (Use Cases)
+
+```
+application
+├── dtos
+├── mappers
+└── usecases
+```
+
+### dtos
+Data Transfer Objects separated by feature:
+- auth
+- task
+- taskList
+
+### mappers
+Converts:
+- Entity ↔ DTO
+
+### usecases
+Organized by feature:
+- auth
+- task
+- taskList
+
+Each use case orchestrates domain logic and repository interaction.
+
+---
+
+## 🟡 Infrastructure Layer
+
+```
+infrastructure
+├── persistence
+└── server
+```
+
+### persistence
+- Database implementations
 - Repository implementations
-- External systems integration
+- Data access logic
 
-### Presentation
-- REST Controllers
-- Request/Response mapping
-- HTTP layer
+### server
+- HTTP server
+- REST configuration
+- External integrations
+
+---
+
+## 🟣 Console Layer
+
+```
+console
+└── ui
+```
+
+- Command-line interface
+- Alternative presentation layer
+- Demonstrates separation of UI from core logic
+
+---
+
+# 🧪 Testing Structure
+
+```
+test/java
+├── persistence
+└── usecases
+```
+
+- Unit tests for use cases
+- Tests for persistence implementations
+- Ensures business logic correctness
+
+Run tests with:
+
+```bash
+./gradlew test
+```
 
 ---
 
@@ -83,20 +184,12 @@ backend
 | Language | Java 21 |
 | Build Tool | Gradle |
 | Database | PostgreSQL / SQLite |
-| API | REST |
+| Architecture | Clean Architecture |
 | Testing | JUnit |
 
 ---
 
-# ⚙️ Requirements
-
-- Java 21+
-- Gradle
-- PostgreSQL (or SQLite if configured)
-
----
-
-# 📦 Installation
+# ⚙️ Installation
 
 From project root:
 
@@ -112,13 +205,13 @@ Build project:
 
 ---
 
-# ▶️ Run the Application
+# ▶️ Run Application
 
 ```bash
 ./gradlew run
 ```
 
-API will start on:
+The API will start on:
 
 ```
 http://localhost:8080
@@ -128,9 +221,9 @@ http://localhost:8080
 
 # 🗄️ Database Configuration
 
-Configure your database connection inside your infrastructure layer or via environment variables.
+Configure database connection in infrastructure layer.
 
-Example (PostgreSQL):
+Example PostgreSQL:
 
 ```
 DB_URL=jdbc:postgresql://localhost:5432/taskdb
@@ -138,7 +231,7 @@ DB_USER=your_user
 DB_PASS=your_password
 ```
 
-Example (SQLite):
+Example SQLite:
 
 ```
 jdbc:sqlite:taskdb.db
@@ -146,62 +239,30 @@ jdbc:sqlite:taskdb.db
 
 ---
 
-# 🧪 Run Tests
-
-```bash
-./gradlew test
-```
-
----
-
-# 🔎 Example API Endpoints
-
-### Get task lists by user
-
-```
-GET /tasklists?userId=user1
-```
-
-### Create task list
-
-```
-POST /tasklists
-```
-
-### Rename task list
-
-```
-PUT /tasklists/{id}
-```
-
-### Delete task list
-
-```
-DELETE /tasklists/{id}
-```
-
----
-
-# 🧱 Design Principles Applied
+# 🧱 Architectural Principles Applied
 
 - Clean Architecture
-- Dependency Inversion
+- Dependency Inversion Principle
 - Single Responsibility Principle
 - Separation of Concerns
-- Framework Independence
-- Testable Business Logic
+- Feature-based use case organization
+- Independent business core
 
 ---
 
-# 📈 Why This Backend Is Portfolio-Ready
+# 📈 Why This Backend Is Strong
 
 This backend demonstrates:
 
-- Proper multi-layer architecture
-- Clean separation between business and infrastructure
-- Replaceable database layer
-- Professional project structure
-- Scalable design ready for extension
+- Real multi-layer architecture
+- Feature-based use case separation
+- DTO and Mapper pattern
+- Repository abstraction
+- Testable business logic
+- Replaceable infrastructure
+- CLI + HTTP presentation layers
+
+It is structured to resemble a production-grade backend system.
 
 ---
 
@@ -209,4 +270,4 @@ This backend demonstrates:
 
 Martí Bessa  
 Software Engineering Student  
-Focused on scalable backend systems and Clean Architecture.
+Focused on scalable backend systems and clean architecture.
