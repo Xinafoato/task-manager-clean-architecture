@@ -1,73 +1,116 @@
-# React + TypeScript + Vite
+# 🎨 Task Manager Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-18-61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
+![Vite](https://img.shields.io/badge/Bundler-Vite-purple)
+![Architecture](https://img.shields.io/badge/Pattern-Clean%20Architecture-orange)
 
-Currently, two official plugins are available:
+Frontend client for the Task Manager Clean Architecture project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This application consumes the backend REST API and provides a clean and modern interface to manage task lists.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 🚀 Features
 
-## Expanding the ESLint configuration
+- Create task lists
+- Rename task lists
+- Delete task lists
+- Connect to backend REST API
+- Clean and organized structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 🧠 Frontend Architecture
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend
+│
+└── src
+    ├── pages
+    ├── components
+    ├── api
+    ├── models
+    └── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Folder Responsibility
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- pages → Application screens
+- components → Reusable UI components
+- api → HTTP requests and backend communication
+- models → TypeScript interfaces and types
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clear separation between UI and API logic.
+
+---
+
+# ⚙️ Requirements
+
+- Node 18+
+- npm
+- Backend running on port 8080
+
+---
+
+# 📦 Installation
+
+```bash
+cd frontend
+npm install
 ```
+
+---
+
+# ▶️ Run Development Server
+
+```bash
+npm run dev
+```
+
+Application runs on:
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🔗 API Configuration
+
+Inside:
+
+```
+src/api/
+```
+
+Example:
+
+```ts
+const BASE_URL = "http://localhost:8080";
+```
+
+---
+
+# 🧪 Production Build
+
+```bash
+npm run build
+```
+
+---
+
+# 💡 Design Goals
+
+- Clean separation of responsibilities
+- Scalable folder structure
+- Type-safe development
+- Professional organization
+- Easy to extend
+
+---
+
+# 👨‍💻 Author
+
+Martí  
+Software Engineering Student
