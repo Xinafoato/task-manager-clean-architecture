@@ -112,5 +112,5 @@ npm run build
 
 # 👨‍💻 Author
 
-Martí  
+Martí Bessa  
 Software Engineering Student

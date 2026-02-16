@@ -1,72 +1,212 @@
-# task-manager-clean-architecture
-Task Manager built with Clean Architecture, Java, Gradle, PostgreSQL.
-his project serves both as a learning platform and as a professional portfolio-quality repository.
+# ⚙️ Task Manager Backend — Clean Architecture
+
+![Java](https://img.shields.io/badge/Java-21-blue)
+![Gradle](https://img.shields.io/badge/Build-Gradle-green)
+![Architecture](https://img.shields.io/badge/Architecture-Clean%20Architecture-orange)
+![Database](https://img.shields.io/badge/Database-PostgreSQL%20%7C%20SQLite-lightgrey)
+![Testing](https://img.shields.io/badge/Testing-JUnit-red)
+
+Backend service for the **Task Manager Clean Architecture** project.
+
+This module implements the business logic following strict Clean Architecture principles, ensuring scalability, testability, and framework independence.
 
 ---
 
-# 📐 Architecture Used — Clean Architecture
+# 🚀 Overview
 
-This project follows a **3-layer Clean Architecture structure**, fully separated and independent:
+The backend provides a REST API that allows:
 
-### **🔵 Domain Layer (Core – Pure Logic)**
-Contains **no frameworks** and **no external dependencies**.
-- Entities (`Task`, `User`, etc.)
-- Use Cases (`CreateTask`, `CompleteTask`, `AssignTask`, etc.)
-- Repository Interfaces (`TaskRepository`, `UserRepository`)
+- Create task lists
+- Retrieve task lists by user
+- Rename task lists
+- Delete task lists
+- Persist data in a relational database
 
-This layer defines *what* the system does.
-
----
-
-### **🟢 Infrastructure Layer (Technical Implementations)**
-Implements the interfaces defined in the domain.
-- PostgreSQL repositories
-- JDBC or JPA mappings
-- External services (email, notifications, hashing, etc.)
-
-This layer defines *how* the system works internally.
+The architecture separates core business rules from infrastructure concerns.
 
 ---
 
-### **🟣 Presentation Layer (Entry Point)**
-Responsible for communication with the user or external systems.
-- REST controllers
-- CLI interface (optional)
-- DTOs & request/response models
+# 🧠 Backend Architecture
 
-This layer converts input/output into domain use cases.
+```
+backend
+│
+└── src
+    └── main
+        └── java
+            └── com.marti
+                ├── domain
+                │   ├── model
+                │   └── repository
+                │
+                ├── application
+                │   └── usecase
+                │
+                ├── infrastructure
+                │   └── persistence
+                │
+                └── presentation
+                    └── controller
+```
 
 ---
 
-# 🚀 Features
+## 📌 Layer Responsibilities
 
-- Create, update and delete tasks
-- Set priorities and deadlines
-- Multiple task lists
-- User authentication
-- Share tasks between users
-- Mark tasks as completed
-- Filters by priority, status and due date
-- Clean, scalable and decoupled architecture
+### Domain
+- Enterprise business rules
+- Entities (TaskList, Task, User)
+- Repository interfaces
+- No framework dependencies
+
+### Application
+- Use cases
+- Orchestrates domain logic
+- Calls repository interfaces
+
+### Infrastructure
+- Database implementation
+- Repository implementations
+- External systems integration
+
+### Presentation
+- REST Controllers
+- Request/Response mapping
+- HTTP layer
 
 ---
 
 # 🛠️ Tech Stack
 
 | Component | Technology |
-|----------|------------|
+|------------|------------|
 | Language | Java 21 |
-| Build System | Gradle |
-| Database | PostgreSQL |
-| Architecture | Clean Architecture |
-| Testing | JUnit + Mockito |
-| Version Control | Git + GitHub |
+| Build Tool | Gradle |
+| Database | PostgreSQL / SQLite |
+| API | REST |
+| Testing | JUnit |
 
 ---
 
-# 📦 Installation & Execution
+# ⚙️ Requirements
 
-### **1️⃣ Clone the repository**
+- Java 21+
+- Gradle
+- PostgreSQL (or SQLite if configured)
+
+---
+
+# 📦 Installation
+
+From project root:
+
 ```bash
-git clone https://github.com/USERNAME/task-manager-clean-architecture.git
-cd task-manager-clean-architecture
+cd backend
+```
+
+Build project:
+
+```bash
+./gradlew build
+```
+
+---
+
+# ▶️ Run the Application
+
+```bash
+./gradlew run
+```
+
+API will start on:
+
+```
+http://localhost:8080
+```
+
+---
+
+# 🗄️ Database Configuration
+
+Configure your database connection inside your infrastructure layer or via environment variables.
+
+Example (PostgreSQL):
+
+```
+DB_URL=jdbc:postgresql://localhost:5432/taskdb
+DB_USER=your_user
+DB_PASS=your_password
+```
+
+Example (SQLite):
+
+```
+jdbc:sqlite:taskdb.db
+```
+
+---
+
+# 🧪 Run Tests
+
+```bash
+./gradlew test
+```
+
+---
+
+# 🔎 Example API Endpoints
+
+### Get task lists by user
+
+```
+GET /tasklists?userId=user1
+```
+
+### Create task list
+
+```
+POST /tasklists
+```
+
+### Rename task list
+
+```
+PUT /tasklists/{id}
+```
+
+### Delete task list
+
+```
+DELETE /tasklists/{id}
+```
+
+---
+
+# 🧱 Design Principles Applied
+
+- Clean Architecture
+- Dependency Inversion
+- Single Responsibility Principle
+- Separation of Concerns
+- Framework Independence
+- Testable Business Logic
+
+---
+
+# 📈 Why This Backend Is Portfolio-Ready
+
+This backend demonstrates:
+
+- Proper multi-layer architecture
+- Clean separation between business and infrastructure
+- Replaceable database layer
+- Professional project structure
+- Scalable design ready for extension
+
+---
+
+# 👨‍💻 Author
+
+Martí Bessa  
+Software Engineering Student  
+Focused on scalable backend systems and Clean Architecture.
